@@ -8,7 +8,7 @@ public class BackgroundController : MonoBehaviour
     public Image backgroundImage;
     public Image fadeOverlay;
 
-    public CanvasGroup dialogueGroup; // 👈 замість GameObject
+    public CanvasGroup dialogueGroup;
 
     public float fadeTime = 1f;
     public float uiFadeTime = 0.4f;
@@ -23,6 +23,11 @@ public class BackgroundController : MonoBehaviour
     public Sprite market_out;
     public Sprite train_one;
     public Sprite train_two;
+    public Sprite black;
+    public Sprite employee_pindos;
+    public Sprite id_bg;
+    public Sprite market_kasse;
+    public Sprite end;
 
     void Start()
     {
@@ -32,34 +37,44 @@ public class BackgroundController : MonoBehaviour
 
     public void ChangeBackgroundWithFade(string bgName)
     {
+        SaveTrigger.SetCurrentBackground(bgName);
+
+        if (SaveManager.Instance != null && !string.IsNullOrEmpty(SaveTrigger.LastSavedNode))
+            SaveManager.Instance.Save(
+                SaveTrigger.LastSavedNode,
+                bgName,
+                SaveTrigger.CurrentMusic
+            );
+
         StartCoroutine(FadeRoutine(bgName));
     }
 
     IEnumerator FadeRoutine(string bgName)
     {
-        // 👻 плавно ховаємо UI
         yield return StartCoroutine(FadeUI(1f, 0f));
         dialogueGroup.interactable = false;
 
-        // ⏳ пауза
         yield return new WaitForSeconds(preDelay);
 
-        // 🔴 затемнення
         yield return StartCoroutine(Fade(0f, 1f));
 
-        // ⏳ тримаємо чорний
         yield return new WaitForSeconds(holdTime);
 
-        // 🔁 зміна фону
-        backgroundImage.sprite = GetSprite(bgName);
+        Sprite newBg = GetSprite(bgName);
 
-        // 🟢 повертаємо сцену
+        if (newBg == null)
+        {
+            Debug.LogError("Background not found: " + bgName);
+        }
+        else
+        {
+            backgroundImage.sprite = newBg;
+        }
+
         yield return StartCoroutine(Fade(1f, 0f));
 
-        // ⏳ маленька пауза
         yield return new WaitForSeconds(0.15f);
 
-        // 👁 плавно повертаємо UI
         dialogueGroup.interactable = true;
         yield return StartCoroutine(FadeUI(0f, 1f));
     }
@@ -106,6 +121,11 @@ public class BackgroundController : MonoBehaviour
             case "market_out": return market_out;
             case "train_one": return train_one;
             case "train_two": return train_two;
+            case "black": return black;
+            case "employee_pindos": return employee_pindos;
+            case "id_bg": return id_bg;
+            case "market_kasse": return market_kasse;
+            case "end": return end;
         }
         return null;
     }

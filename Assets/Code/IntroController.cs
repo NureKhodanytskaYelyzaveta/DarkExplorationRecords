@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
@@ -17,6 +17,8 @@ public class IntroController : MonoBehaviour
 #endif
 
         if (tapped)
+        {
             LoadingScreen.LoadScene("MainMenuScene");
+        }
     }
 }

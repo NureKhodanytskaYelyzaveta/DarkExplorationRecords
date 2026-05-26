@@ -129,10 +129,10 @@ TextureImporter:
       name: passersby_gloomy_0
       rect:
         serializedVersion: 2
-        x: 19
+        x: 7
         y: 0
-        width: 1005
-        height: 1418
+        width: 1017
+        height: 1512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

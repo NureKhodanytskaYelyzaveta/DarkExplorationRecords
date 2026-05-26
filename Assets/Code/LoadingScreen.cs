@@ -13,10 +13,8 @@ public class LoadingScreen : MonoBehaviour
     [Header("Налаштування")]
     public float minLoadTime = 3f;
 
-    // Статична змінна для збереження наступної сцени
     private static string nextSceneName = "MainMenuScene";
 
-    // Публічний метод для встановлення наступної сцени
     public static void LoadScene(string sceneName)
     {
         nextSceneName = sceneName;
@@ -46,9 +44,10 @@ public class LoadingScreen : MonoBehaviour
             displayProgress = Mathf.MoveTowards(
                 displayProgress, target, Time.deltaTime * 0.5f);
 
-            loadingBar.value = displayProgress;
+            if (loadingBar != null)
+                loadingBar.value = displayProgress;
 
-            if (percentText)
+            if (percentText != null)
                 percentText.text = $"{Mathf.RoundToInt(displayProgress * 100)}%";
 
             if (displayProgress >= 0.999f)

@@ -129,10 +129,10 @@ TextureImporter:
       name: passersby_base_0
       rect:
         serializedVersion: 2
-        x: 16
+        x: 1
         y: 0
-        width: 1008
-        height: 1431
+        width: 1023
+        height: 1524
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
